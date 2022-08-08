@@ -15,9 +15,16 @@ type Query {
 
 type Mutation {
   addTask(todo: CreateTodo!): [Todo!]!
+  updateTask(todo: UpdateTodo!): Todo!
 }
 
 input CreateTodo {
   title: String!
   votes: Int
+}
+
+input UpdateTodo {
+  title: String
+  votes: Int
+  _id: String!
 }

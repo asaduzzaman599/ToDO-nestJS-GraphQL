@@ -50,4 +50,21 @@ export class TodoService {
     this.data.push(todo);
     return this.data;
   }
+
+  updateTodo(todo) {
+    const { _id, title, votes } = todo;
+    const id = parseInt(_id);
+    console.log(_id, title, votes);
+    const exist = this.data.findIndex((item) => item.id === id);
+
+    console.log(exist);
+    if (exist + 1) {
+      console.log('exit', this.data[exist]);
+      this.data[exist].title = title;
+      this.data[exist].votes = votes;
+      console.log(this.data[exist]);
+      return this.data[exist];
+    }
+    return;
+  }
 }

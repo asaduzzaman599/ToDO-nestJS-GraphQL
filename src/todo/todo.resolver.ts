@@ -1,6 +1,6 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Todo } from './dto/todo.dto';
-import { CreateTodo } from './entity/todo.entity';
+import { CreateTodo, UpdateTodo } from './entity/todo.entity';
 import { TodoService } from './todo.service';
 
 @Resolver(() => Todo)
@@ -20,5 +20,10 @@ export class TodoResolver {
   @Mutation(() => [Todo])
   async addTask(@Args('todo') todo: CreateTodo) {
     return this.todoService.createTodo(todo);
+  }
+
+  @Mutation(() => Todo)
+  async updateTask(@Args('todo') todo: UpdateTodo) {
+    return this.todoService.updateTodo(todo);
   }
 }
