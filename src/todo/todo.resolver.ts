@@ -1,13 +1,24 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Todo } from './dto/todo.dto';
+import { CreateTodo } from './entity/todo.entity';
 import { TodoService } from './todo.service';
 
 @Resolver(() => Todo)
 export class TodoResolver {
-  constructor(private authorsService: TodoService) {}
+  constructor(private todoService: TodoService) {}
 
-  @Query(() => Todo)
-  async todo() {
-    return this.authorsService.findOneById();
+  @Query(() => [Todo])
+  async todoList(): Promise<any> {
+    return this.todoService.findAll();
+  }
+
+  @Query(() => [Todo])
+  async todoSingle(@Args('id') id: string): Promise<any> {
+    return this.todoService.findOneById(id);
+  }
+
+  @Mutation(() => [Todo])
+  async addTask(@Args('todo') todo: CreateTodo) {
+    return this.todoService.createTodo(todo);
   }
 }

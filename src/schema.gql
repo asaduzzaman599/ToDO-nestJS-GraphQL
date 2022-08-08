@@ -9,5 +9,15 @@ type Todo {
 }
 
 type Query {
-  todo: Todo!
+  todoList: [Todo!]!
+  todoSingle(id: String!): [Todo!]!
+}
+
+type Mutation {
+  addTask(todo: CreateTodo!): [Todo!]!
+}
+
+input CreateTodo {
+  title: String!
+  votes: Int
 }
